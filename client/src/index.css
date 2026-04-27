@@ -1,0 +1,93 @@
+/* 1. @IMPORT SEMUA DI PALING ATAS */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+/* 2. SETELAH ITU BARU @THEME */
+@theme {
+  --font-poppins: "Poppins", sans-serif;
+
+  /* Palet Hijau Cerah (Versi Light Mode / Vibrant) */
+  --color-bg-utama: #eafff0;      /* Hijau mint sangat cerah/lembut untuk background utama */
+  --color-kaca-terang: #ffffff;   /* Putih untuk card glass */
+  --color-hijau-medium: #10b981;  /* Hijau emerald untuk hover/aksen */
+  --color-hijau-aesthetic: #00c853; /* Hijau vibrant utama (super cerah) */
+  --color-hijau-muda: #bbf7d0;    /* Hijau pastel untuk highlight */
+  --color-teks-gelap: #111827;    /* Abu-abu hampir hitam untuk teks (agar terbaca di background terang) */
+}
+
+/* 3. BARU KEMUDIAN @LAYER BASE ATAU CUSTOM CSS */
+@layer base {
+  :root {
+    font-family: "Poppins", sans-serif;
+    color-scheme: light; /* Diubah ke light agar elemen browser menyesuaikan tema terang */
+  }
+
+  /* --- KODE TAMBAHAN UNTUK FULL SCREEN --- */
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-bg-utama); /* Background sekarang hijau mint cerah */
+    color: var(--color-teks-gelap); /* Teks berubah jadi gelap */
+    overflow: hidden; /* Recommended for fixed layout apps, scroll inside containers */
+  }
+
+  input, select, textarea, button {
+    @apply outline-none transition-all duration-300;
+  }
+}
+
+/* ====================================================
+   💎 CUSTOM SCROLLBAR (Aesthetic Light Mode)
+   ==================================================== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.03); /* Track sedikit abu-abu transparan */
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 200, 83, 0.25); /* Transparan vibrant green */
+  border-radius: 10px;
+  border: 1px solid rgba(0, 200, 83, 0.1);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 200, 83, 0.6); /* Lebih jelas saat hover */
+  box-shadow: 0 0 10px rgba(0, 200, 83, 0.2);
+}
+
+/* ====================================================
+   🌌 GLOBAL FIX UNTUK INPUT BAWAAN BROWSER
+   ==================================================== */
+
+/* MENCEGAH AUTOFILL BROWSER MERUSAK TEMA (Warna background paksa browser) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #ffffff inset !important; /* Diubah ke putih glass */
+    -webkit-text-fill-color: #111827 !important; /* Warna teks gelap */
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* MENYEMBUNYIKAN IKON MATA (PASSWORD REVEAL) BAWAAN EDGE/CHROME */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none !important;
+}
+input[type="password"]::-webkit-contacts-auto-fill-button,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none !important;
+}
+
+/* MENYEMBUNYIKAN PANAH NAIK-TURUN (SPIN) PADA INPUT ANGKA (HARGA/STOK) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
